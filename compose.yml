@@ -1,0 +1,30 @@
+namespace: latex-rpg-sarradar
+
+containers:
+
+  kscript:
+    image:   tzrlk/kscript
+    workdir: /work
+    volumes:
+      - "${HOME}/.rocker_cache:/root/.rocker_cache"
+      - '.:/work'
+    state:   ran
+    restart: never
+    cmd:     compile.kts
+
+  pdflatex:
+    image:      schickling/latex
+    wait_for:   [ kscript ]
+    workdir:    /work
+    volumes:    [ '.:/work' ]
+    state:      ran
+    restart:    never
+    entrypoint: sh
+    cmd: |-
+      mkdir -p _build && \
+      pdflatex \
+          -halt-on-error \
+          -interaction nonstopmode \
+          -output-directory _build \
+          src/main.tex
+

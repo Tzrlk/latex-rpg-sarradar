@@ -1,0 +1,26 @@
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+before_install:
+  - docker --version
+  - docker pull schickling/latex
+  - docker pull tzrlk/rocker-compose
+  - docker pull tzrlk/kscript
+
+script: ./build.sh
+
+deploy:
+
+  - provider:     releases
+    skip_cleanup: true
+    file:         _build/main.pdf
+    on:           { tags: true }
+    api_key:      { secure: "" }
+
