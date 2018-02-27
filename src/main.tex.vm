@@ -1,0 +1,41 @@
+\documentclass[10pt,twoside,openany]{book}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lib/dnd}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+\title{Sarradar RPG}
+\author{Peter Cummuskey}
+\date{$date}
+\lstset{%
+  basicstyle=\ttfamily,
+  language=[LaTeX]{TeX},
+}
+
+\begin{document}
+
+\maketitle
+
+\chapter{Table of Contents}
+\makeatletter
+	\let\ps@plain\ps@fancy
+	\@starttoc{toc}
+\makeatother
+
+\chapter{Introduction}
+\begin{multicols}{2}
+
+	% TODO
+
+\end{multicols}
+
+\chapter{Spells}
+\begin{multicols}{2}
+
+	% TODO
+
+\end{multicols}
+
