@@ -35,7 +35,17 @@
 \chapter{Spells}
 \begin{multicols}{2}
 
-	% TODO
+	#foreach ($spell in $spells)
+		\begin{spell}
+			{$spell.name}
+			{$spell.type}
+			{$spell.action}
+			{$spell.range}
+			{$spell.components}
+			{$spell.duration}
+			$spell.description
+		\end{spell}
+	#end
 
 \end{multicols}
 
