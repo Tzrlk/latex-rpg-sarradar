@@ -7,13 +7,35 @@ fi
 
 WORK=`pwd`
 
+# Compile the velocity templates
 docker run -it --rm \
-	--volume /var/run/docker.sock:/var/run/docker.sock \
-	--volume "${HOME}/.rocker_cache":/root/.rocker_cache \
-	--volume "${HOME}/.docker":/root/.docker \
-	--volume "${WORK}":/work \
+	--volume  "${WORK}":/work \
 	--workdir /work \
-	--env     HPWD=/work \
-	tzrlk/rocker-compose \
-	run
+	--entrypoint /root/.sdkman/candidates/kscript/current/bin/kscript \
+	tzrlk/kscript \
+		compile.kts
+
+# Check that compilation succeeded.
+if [ ${?} ]; then
+	echo >&2 "Template compilation failed."
+	exit 1
+fi
+
+# Make sure the build output directory exists
+mkdir -p _build
+
+# Compile the latex to pdf
+docker run -it --rm \
+	--volume  "${WORK}":/work \
+	--workdir /work \
+	schickling/latex \
+		-halt-on-error \
+		-interaction nonstopmode \
+		-output-directory _build \
+		src/main.tex
+
+if [ ${?} ]; then
+	echo >&2 "LaTeX compilation failed."
+	exit 1
+fi
 
