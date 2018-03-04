@@ -32,6 +32,54 @@
 
 \end{multicols}
 
+\chapter{Character Creation}
+\begin{multicols}{2}
+
+	//
+
+	\section{Creating a Character}
+
+		//
+
+		\begin{enumerate}
+
+			\item \textbf{Character Concept:} //
+
+			\item \textbf{Attributes:} //
+
+			\item \textbf{Race:} //
+
+			\item \textbf{Backgrounds:}
+				Every character gets to pick three backgrounds. \\
+					The first background is chosen as whatever the character
+				considers being a "normal person", so if they grew up as a
+				normal citizen in rural Korashur, they would pick "Rural
+				Korashuran Citizen" as their first background. This would mean
+				that if given a knowledge check regarding some aspect of
+				general Korashuran lore, they can add 1 to their effective
+				skill rating for the check. \\
+					The second background is the character's profession,
+				chosen, or otherwise. This can be their current job, or
+				something they did for some time before they took up a life of
+				adventuring. There really isn't such a thing as an
+				"Adventurer" in Sarradar, but "Archaeologist" or "Mercenary"
+				are common.
+					The third background is either a specialisation of the
+				second, or an additional career that the character pursues.
+				For most mercenaries, their second background is typically
+				whatever they did before they became a sellsword, though they
+				can always specialise as a "Bounty Hunter" or "Assassin".
+
+			\item \textbf{Skills:} //
+
+			\item \textbf{Disciplines:} //
+
+		\end{enumerate}
+
+	\section{Character Packages}
+
+\end{multicols}
+
 \chapter{Spells}
 \begin{multicols}{2}
 
