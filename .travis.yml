@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
       - texlive
+      - texlive-latex-extra
 
 before_install:
   - bash -c "curl -s \"https://get.sdkman.io\" | bash"
