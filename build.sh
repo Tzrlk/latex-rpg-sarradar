@@ -34,26 +34,22 @@ if [ -z "${bin_kscript}" ] || [ -z "${bin_pdflatex}" ]; then
 fi
 
 # Compile the velocity templates
-eval ${bin_kscript} compile.kts
-
-# Check that compilation succeeded.
-if [ ${?} ]; then
+eval "${bin_kscript} \
+		compile.kts" || {
 	echo >&2 "Template compilation failed."
 	exit 1
-fi
+}
 
 # Make sure the build output directory exists
 mkdir -p _build
 
 # Compile the latex to pdf
-eval ${bin_pdflatex} \
-	-halt-on-error \
-	-interaction nonstopmode \
-	-output-directory _build \
-	src/main.tex
-
-if [ ${?} ]; then
+eval "${bin_pdflatex} \
+		-halt-on-error \
+		-interaction nonstopmode \
+		-output-directory _build \
+		src/main.tex" || {
 	echo >&2 "LaTeX compilation failed."
 	exit 1
-fi
+}
 
