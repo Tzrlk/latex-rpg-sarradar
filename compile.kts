@@ -11,9 +11,11 @@ import java.util.Date
 import java.util.Properties
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
+import org.apache.commons.csv.CSVRecord
 import org.apache.velocity.app.Velocity
 import org.apache.velocity.Template
 import org.apache.velocity.VelocityContext
+import org.slf4j.LoggerFactory
 
 val log = LoggerFactory.getLogger("compile")
 
@@ -22,7 +24,7 @@ fun <T> readcsv(file: String, mapper: (CSVRecord) -> T) = FileReader(file)
 		.use { reader -> CSVParser(reader, csvformat)
 				.use { parser -> parser.map(mapper) } }
 
-log.info("Beginning spell data parsing.")
+log.info("Parsing spell data.")
 val spells = readcsv("src/spells.csv") { record -> mapOf(
 	"name"        to record.get("Name"),
 	"type"        to record.get("Type"),
@@ -33,7 +35,7 @@ val spells = readcsv("src/spells.csv") { record -> mapOf(
 	"description" to record.get("Description")
 ) }
 
-log.info("Beginning discipline data parsing.")
+log.info("Parsing discipline data.")
 val disciplines = readcsv("src/disciplines.csv") { record -> mapOf(
 	"name"          to record.get("Name"),
 	"category"      to record.get("Category"),
@@ -48,7 +50,7 @@ Velocity.init(Properties().apply {
 val currentDate = SimpleDateFormat("dd/MM/yy")
 		.format(Date())
 
-log.info("Beginning template compilation.")
+log.info("Compiling template.")
 FileWriter("src/main.tex").use { writer ->
 	Velocity.mergeTemplate(
 			"src/main.tex.vm", "utf-8",
@@ -59,4 +61,6 @@ FileWriter("src/main.tex").use { writer ->
 			)),
 			writer)
 }
+
+log.info("Compilation complete.")
 
