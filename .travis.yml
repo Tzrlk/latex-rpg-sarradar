@@ -17,9 +17,6 @@ install:
   - sdk install maven
   - sdk install kotlin
   - sdk install kscript
-  - find . -name *.tex \
-      | sed -n 's~^[^%]*\\usepackage[^{]*{\([^}]*\)}.*$~\1.sty~p' \
-      | while read file; do tlmgr install ${file}; done
 
 after_install:
   - mvn --version
