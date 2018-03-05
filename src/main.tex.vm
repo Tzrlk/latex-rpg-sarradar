@@ -80,6 +80,23 @@
 
 \end{multicols}
 
+\chapter{Disciplines}
+\begin{multicols}{2}
+
+	#foreach ($discipline in $disciplines)
+		\begin{spell} %TODO: Make discipline template
+			{$discipline.name}
+			{$discipline.type}
+			{$discipline.grade}
+			{$discipline.prerequisites}
+			{}
+			{}
+			$discipline.description
+		\end{spell}
+	#end
+
+\end{multicols}
+
 \chapter{Spells}
 \begin{multicols}{2}
 
