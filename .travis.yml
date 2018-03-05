@@ -1,17 +1,24 @@
 sudo: required
 
-services:
-  - docker
-
 addons:
   apt:
     packages:
-      - docker-ce
+      - texlive
 
 before_install:
-  - docker --version
-  - docker pull schickling/latex
-  - docker pull tzrlk/kscript
+  - bash -c "curl -s \"https://get.sdkman.io\" | bash"
+  - source "/home/travis/.sdkman/bin/sdkman-init.sh"
+
+install:
+  - sdk install maven
+  - sdk install kotlin
+  - sdk install kscript
+
+after_install:
+  - mvn --version
+  - kotlin --version
+  - kscript --version
+  - pdflatex -version
 
 script: ./build.sh
 
