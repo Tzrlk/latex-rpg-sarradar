@@ -36,12 +36,26 @@ val spells = FileReader("src/spells.csv").use { reader ->
 	}
 }
 
+val disciplines = FileReader("src/disciplines.csv").use { reader ->
+	val format = CSVFormat.RFC4180.withFirstRecordAsHeader()
+	CSVParser(reader, format).use { parser ->
+		parser.map { record -> mapOf(
+			"name"          to record.get("Name"),
+			"category"      to record.get("Category"),
+			"grade"         to record.get("Grade"),
+			"prerequisites" to record.get("Prerequisites"),
+			"description"   to record.get("Description")
+		) }
+	}
+}
+
 FileWriter("src/main.tex").use { writer ->
 	Velocity.mergeTemplate(
 			"src/main.tex.vm", "utf-8",
 			VelocityContext(mapOf(
-				"date"   to currentDate,
-				"spells" to spells
+				"date"        to currentDate,
+				"disciplines" to disciplines,
+				"spells"      to spells
 			)),
 			writer)
 }
