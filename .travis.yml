@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
       - latex-xcolor
+      - pgf
       - texlive
       - texlive-latex-extra
       - xzdec
