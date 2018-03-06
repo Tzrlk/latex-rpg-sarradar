@@ -20,7 +20,6 @@ ${bin_kscript} compile.kts || {
 # Make sure the build output directory exists
 mkdir -p _build
 
-${bin_tlmgr} update --self
 find . -name *.tex \
 	| xargs -n 1 cat \
 	| sed -n 's~^[^%]*\\usepackage[^{]*{\([^}]*\)}.*$~\1~p' \
