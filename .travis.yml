@@ -7,6 +7,7 @@ sudo: false
 addons:
   apt:
     packages:
+      - latex-xcolor
       - texlive
       - texlive-latex-extra
       - xzdec
@@ -15,7 +16,7 @@ before_install:
   - bash -c "curl -s \"https://get.sdkman.io\" | bash"
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
   - tlmgr init-usertree
-  - tlmgr option repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final
+  - tlmgr option repository ftp://tug.org/historic/systems/texlive/2013/tlnet-final
   - tlmgr update --self
 
 install:
