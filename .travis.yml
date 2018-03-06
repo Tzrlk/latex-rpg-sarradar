@@ -9,6 +9,7 @@ addons:
     packages:
       - texlive
       - texlive-latex-extra
+      - xzdec
 
 before_install:
   - bash -c "curl -s \"https://get.sdkman.io\" | bash"
