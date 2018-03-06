@@ -1,8 +1,8 @@
 #!/bin/sh
 
-bin_docker=`which docker 2>/dev/null`
 bin_kscript=`which kscript 2>/dev/null`
 bin_pdflatex=`which pdflatex 2>/dev/null`
+bin_tlmgr=`which tlmgr 2>/dev/null`
 
 WORK=`pwd`
 
@@ -12,7 +12,7 @@ if [ -z "${bin_kscript}" ] || [ -z "${bin_pdflatex}" ]; then
 fi
 
 # Compile the velocity templates
-eval "${bin_kscript} compile.kts" || {
+${bin_kscript} compile.kts || {
 	echo >&2 "Template compilation failed."
 	exit 1
 }
@@ -20,8 +20,18 @@ eval "${bin_kscript} compile.kts" || {
 # Make sure the build output directory exists
 mkdir -p _build
 
+${bin_tlmgr} update --self
+find . -name *.tex \
+	| xargs -n 1 cat \
+	| sed -n 's~^[^%]*\\usepackage[^{]*{\([^}]*\)}.*$~\1~p' \
+	| while read file; do ${bin_tlmgr} install ${file}; done
+
+tex_opts="-halt-on-error"
+tex_opts="${tex_opts} -interaction nonstopmode"
+tex_opts="${tex_opts} -output-directory _build"
+
 # Compile the latex to pdf
-./build-tex.sh src/main.tex ${bin_pdflatex} || {
+${bin_pdflatex} ${tex_opts} src/main.tex || {
 	echo >&2 "LaTeX compilation failed."
 	exit 1
 }
