@@ -8,8 +8,10 @@ fi
 
 # This script should run inside the pdflatex environment.
 
+tlmgr update --self
 find . -name *.tex \
-	| sed -n 's~^[^%]*\\usepackage[^{]*{\([^}]*\)}.*$~\1.sty~p' \
+	| xargs -n 1 cat \
+	| sed -n 's~^[^%]*\\usepackage[^{]*{\([^}]*\)}.*$~\1~p' \
 	| while read file; do tlmgr install ${file}; done
 
 tex_opts="-halt-on-error"
