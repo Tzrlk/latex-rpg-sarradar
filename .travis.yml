@@ -13,8 +13,8 @@ addons:
 before_install:
   - bash -c "curl -s \"https://get.sdkman.io\" | bash"
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
-  - tlmgr update --self
   - tlmgr init-usertree
+  - tlmgr update --self
 
 install:
   - sdk install maven
