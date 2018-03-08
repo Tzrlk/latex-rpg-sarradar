@@ -2,39 +2,35 @@ language: java
 jdk:      [ oraclejdk8 ]
 
 dist: trusty
-sudo: false
+sudo: required
 
-addons:
-  apt:
-    packages:
-      - latex-xcolor
-      - pgf
-      - texlive
-      - texlive-latex-extra
-      - xzdec
+services:
+  - docker
 
 before_install:
+
   - bash -c "curl -s \"https://get.sdkman.io\" | bash"
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
-  - tlmgr init-usertree
-  - tlmgr option repository ftp://tug.org/historic/systems/texlive/2013/tlnet-final
-  - tlmgr update --self
+
+  - make docker_prep
 
 install:
+
   - sdk install maven
   - sdk install kotlin
   - sdk install kscript
 
+  - make docker_build
+
 after_install:
-  - mvn --version
-  - kotlin --version
-  - kscript --version
-  - pdflatex -version
+  - docker   --version
+  - mvn      --version
+  - kotlin   --version
+  - kscript  --version
 
 script:
   - make compile
-  - make texdeps
-  - make render
+  - make docker_run
 
 deploy:
 

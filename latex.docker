@@ -1,0 +1,33 @@
+FROM blang/latex:ctanbasic
+
+# Configure texlive
+RUN tlmgr option repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final \
+ && tlmgr update --self
+
+RUN tlmgr install \
+	ec \
+	enumitem \
+	environ \
+	etoolbox \
+	fp \
+	keycommand \
+	l3kernel \
+	l3packages \
+	listings \
+	microtype \
+	pgf \
+	tcolorbox \
+	tocloft \
+	trimspaces \
+	xcolor \
+	xkeyval \
+	xstring
+
+WORKDIR /work
+
+ENTRYPOINT [ "/usr/bin/env", "pdflatex", \
+	"-halt-on-error", \
+	"-interaction", "nonstopmode", \
+	"-output-directory", "_build" \
+]
+
